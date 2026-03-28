@@ -35,8 +35,8 @@ jobs:
           git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
           git clone https://github.com/zsh-users/zsh-completions.git ${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions
           
-          source ~/.zshrc
-          compaudit | xargs chmod g-w,o-w
+          chmod go-w /usr/share/zsh
+          chmod go-w /usr/share/zsh/vendor-completions
           
           cat > .zshrc <<'EOF'
           # If you come from bash you might have to change your $PATH.
