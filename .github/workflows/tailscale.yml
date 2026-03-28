@@ -27,6 +27,7 @@ jobs:
           DEBIAN_FRONTEND=noninteractive apt install -y wget curl vim tmux tree nload zsh ripgrep neovim fd-find git bat
           
           curl -sS https://starship.rs/install.sh | sh -s -- -y
+          curl -LsSf https://astral.sh/uv/install.sh | sh
           
           sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
           chsh root -s $(which zsh)
@@ -155,6 +156,8 @@ jobs:
           
           eval "$(starship init zsh)"
           
+          source $HOME/.local/bin/env
+          
           EOF
           ROOT_EOF
 
@@ -177,6 +180,11 @@ jobs:
         run: |
           sudo su - root << 'ROOT_EOF'
           cat > /usr/local/bin/poweroff << 'EOF'
+          touch /tmp/stop_runner
+          echo "Stopping GitHub Action and shutting down..."
+          EOF
+          
+          cat > /usr/local/bin/reboot << 'EOF'
           touch /tmp/stop_runner
           echo "Stopping GitHub Action and shutting down..."
           EOF
