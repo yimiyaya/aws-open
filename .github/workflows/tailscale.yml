@@ -7,7 +7,7 @@ on:
         description: runner machine type
         type: string
         required: false
-        default: 'ubuntu-24.04'
+        default: ubuntu-24.04
       idle-timeout:
         description: idle timeout in seconds (0 to disable)
         type: number
@@ -32,7 +32,7 @@ jobs:
           oauth-client-id: ${{ secrets.TAILSCALE_OAUTH_CLIENT_ID }}
           oauth-secret: ${{ secrets.TAILSCALE_OAUTH_SECRET }}
           tags: tag:not
-          args: --advertise-exit-node --ssh
+          args: --advertise-exit-node --ssh --hostname aws
 
       - name: Free Disk Space (Ubuntu)
         if: ${{ inputs.free-space }}
