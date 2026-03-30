@@ -50,9 +50,6 @@ jobs:
         run: |
           sudo bash .github/scripts/setup.sh
 
-      - name: Show Workflow env
-        run: env
-
       - name: Keep Runner Alive and Monitor Idle
         env:
           IDLE_TIMEOUT: ${{ inputs.idle-timeout }}
