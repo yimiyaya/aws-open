@@ -12,7 +12,7 @@ on:
         description: idle timeout in seconds (0 to disable)
         type: number
         required: false
-        default: 600
+        default: 120
       free-space:
         description: free space
         type: boolean

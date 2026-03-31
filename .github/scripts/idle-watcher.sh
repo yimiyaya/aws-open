@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Default timeout 600s
-TIMEOUT=${IDLE_TIMEOUT:-600}
+# Default timeout 120s
+TIMEOUT=${IDLE_TIMEOUT:-120}
 
 if [ "$TIMEOUT" -le 0 ]; then
     echo "Idle timeout is set to $TIMEOUT. Idle watcher is disabled."
