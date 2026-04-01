@@ -24,8 +24,8 @@ ZSH_CUSTOM=${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}
 # Copy .zshrc from scripts
 cp .github/scripts/.zshrc "$HOME/.zshrc"
 
-# Copy .tmux.conf from scripts
-cp .github/scripts/.tmux.conf "$HOME/.tmux.conf"
+# Enable mouse mode in tmux
+echo "set -g mouse on" >> "$HOME/.tmux.conf"
 
 # Fix zsh completion permissions
 chmod go-w /usr/share/zsh 2>/dev/null || true
