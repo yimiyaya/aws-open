@@ -33,7 +33,7 @@ jobs:
           echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.d/99-tailscale.conf
           echo "net.ipv4.ip_forward=1" >> /etc/sysctl.d/99-tailscale.conf
           echo "net.ipv6.conf.all.forwarding=1" >> /etc/sysctl.d/99-tailscale.conf
-          sysctl -p
+          sysctl -p /etc/sysctl.d/99-tailscale.conf
           EOF
 
       - name: Tailscale
