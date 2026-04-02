@@ -26,6 +26,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
+      - name: Set Custom Hostname
+        run: |
+          sudo su - root << 'EOF'
+          OWNER=$(echo "$GITHUB_REPOSITORY_OWNER" | tr '[:upper:]' '[:lower:]')
+          HOSTNAME="runner-$OWNER"
+          hostnamectl set-hostname "$HOSTNAME"
+          EOF
+
       - name: Enable TCP BBR Congestion Control
         run: |
           sudo su - root << 'EOF'
