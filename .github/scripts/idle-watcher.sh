@@ -21,7 +21,7 @@ while true; do
 
     if [ -n "$TS_PID" ]; then
         # Check for child processes (SSH sessions, SFTP, port forwarding, etc.)
-        CHILD_PROCESSES=$(ps --ppid "$TS_PID" --no-headers 2>/dev/null)
+        CHILD_PROCESSES=$(pgrep -P "$TS_PID" 2>/dev/null)
 
         if [ -n "$CHILD_PROCESSES" ]; then
             SESSION_ACTIVE=1
