@@ -69,11 +69,4 @@ jobs:
 
       - name: Keep Runner Alive
         run: |
-          echo "Runner is active. Connect via Tailscale SSH and run 'poweroff' to terminate."
-          
-          # Main loop to wait for signal
-          while [ ! -f /tmp/stop_runner ]; do 
-            sleep 30
-          done
-          
-          echo "$(date): Shutdown signal received. Exiting loop."
+          tail -f /dev/null || :

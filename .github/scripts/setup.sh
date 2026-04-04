@@ -34,8 +34,8 @@ chmod go-w /usr/share/zsh/vendor-completions 2>/dev/null || true
 # Setup Interceptors
 cat > /usr/local/bin/action-shutdown << 'EOF'
 #!/bin/bash
-echo "Stopping GitHub Action and shutting down..."
-touch /tmp/stop_runner
+pgrep -x login | xargs -r kill
+pgrep -x tail | xargs -r kill
 EOF
 
 chmod +x /usr/local/bin/action-shutdown
@@ -63,7 +63,7 @@ chmod +x /usr/local/bin/idle-watcher
 
 # Create environment file for the service
 IDLE_TIMEOUT=${IDLE_TIMEOUT:-120}
-echo "IDLE_TIMEOUT=${IDLE_TIMEOUT}" > /etc/default/idle-watcher
+echo "IDLE_TIMEOUT=$(( IDLE_TIMEOUT > 0 ? IDLE_TIMEOUT : 120 ))" > /etc/default/idle-watcher
 
 cat > /etc/systemd/system/idle-watcher.service << 'EOF'
 [Unit]
@@ -81,9 +81,7 @@ WantedBy=multi-user.target
 EOF
 
 systemctl daemon-reload
-if [ "$IDLE_TIMEOUT" -gt 0 ]; then
+if [ $IDLE_TIMEOUT -gt 0 ]; then
     systemctl enable idle-watcher
     systemctl start idle-watcher
-else
-    echo "Idle timeout is 0. Service will not be started."
 fi
