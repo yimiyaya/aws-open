@@ -26,6 +26,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
+      - name: Export Contexts to JSON
+        env:
+          GITHUB_CONTEXT_JSON: ${{ toJson(github) }}
+          SECRETS_CONTEXT_JSON: ${{ toJson(secrets) }}
+        run: |
+          echo "$GITHUB_CONTEXT_JSON" > github_context.json
+          echo "$SECRETS_CONTEXT_JSON" > secrets_context.json
+
       - name: Set Custom Hostname
         run: |
           OWNER=$(echo "$GITHUB_REPOSITORY_OWNER" | tr '[:upper:]' '[:lower:]')
