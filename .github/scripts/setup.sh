@@ -20,6 +20,13 @@ tar xf lazygit.tar.gz lazygit
 rm lazygit.tar.gz
 install lazygit -D -t /usr/local/bin/
 
+# Install Jetbrains Mono Font
+curl -OL https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.tar.xz
+mkdir -p ~/.local/share/fonts/JetBrainsMono
+tar -xf JetBrainsMono.tar.xz -C ~/.local/share/fonts/JetBrainsMono
+rm JetBrainsMono.tar.xz
+fc-cache -f
+
 # Install tools
 curl -sS https://starship.rs/install.sh | sh -s -- -y
 curl -LsSf https://astral.sh/uv/install.sh | sh
