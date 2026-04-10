@@ -6,8 +6,9 @@ export DEBIAN_FRONTEND=noninteractive
 apt-get update
 apt-get install -y wget curl vim tmux tree nload zsh ripgrep fd-find git bat mosh
 
+ARCH=$(uname -m | sed -e 's/aarch64/arm64/')
+
 # Install latest nvim
-ARCH=$(uname -m)
 curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-"$ARCH".tar.gz
 tar -C /usr/local --strip-components=1 -xzf nvim-linux-"$ARCH".tar.gz
 rm nvim-linux-"$ARCH".tar.gz
@@ -15,8 +16,7 @@ git clone https://github.com/LazyVim/starter "$HOME/.config/nvim"
 
 # Install latest lazygit
 LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": *"v\K[^"]*')
-LAZYGIT_ARCH=$(uname -m | sed -e 's/aarch64/arm64/')
-curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_${LAZYGIT_ARCH}.tar.gz"
+curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_${ARCH}.tar.gz"
 tar xf lazygit.tar.gz lazygit
 rm lazygit.tar.gz
 install lazygit -D -t /usr/local/bin/
