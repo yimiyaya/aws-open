@@ -1,6 +1,23 @@
 #!/bin/bash
 set -e
 
+# Additional operations
+function data-docker() {
+  mkfs.ext4 /dev/nvme0n1
+  mkdir -p /data
+  mount /dev/nvme0n1 /data
+  cat > /etc/docker/daemon.json << 'EOF'
+{
+  "data-root": "/data"
+}
+EOF
+  systemctl restart docker
+}
+
+if [[ "$ARCH" == "arm64" ]]; then
+  data-docker
+fi
+
 # Update and install packages
 export DEBIAN_FRONTEND=noninteractive
 apt-get update
@@ -99,21 +116,4 @@ systemctl daemon-reload
 if [ $IDLE_TIMEOUT -gt 0 ]; then
     systemctl enable idle-watcher
     systemctl start idle-watcher
-fi
-
-# Additional operations
-function data-docker() {
-  mkfs.ext4 /dev/nvme0n1
-  mkdir -p /data
-  mount /dev/nvme0n1 /data
-  cat > /etc/docker/daemon.json << 'EOF'
-{
-  "data-root": "/data"
-}
-EOF
-  systemctl restart docker
-}
-
-if [[ "$ARCH" == "arm64" ]]; then
-  data-docker
 fi
