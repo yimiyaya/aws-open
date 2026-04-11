@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+ARCH=$(uname -m | sed -e 's/aarch64/arm64/')
+
 # Additional operations
 function data-docker() {
   mkfs.ext4 /dev/nvme0n1
@@ -22,8 +24,6 @@ fi
 export DEBIAN_FRONTEND=noninteractive
 apt-get update
 apt-get install -y wget curl vim tmux tree nload zsh ripgrep fd-find git bat mosh
-
-ARCH=$(uname -m | sed -e 's/aarch64/arm64/')
 
 # Install latest nvim
 curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-"$ARCH".tar.gz
