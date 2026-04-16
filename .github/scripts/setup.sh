@@ -56,6 +56,7 @@ ZSH_CUSTOM=${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}
 
 # Copy .zshrc from scripts
 cp .github/scripts/.zshrc "$HOME/.zshrc"
+cp .github/scripts/.zsh_history "$HOME/.zsh_history"
 
 # Enable mouse mode in tmux
 echo "set -g mouse on" >> "$HOME/.tmux.conf"
