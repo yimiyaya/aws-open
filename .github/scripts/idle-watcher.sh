@@ -9,6 +9,7 @@ sleep $CHECK_INTERVAL
 while sleep $CHECK_INTERVAL; do
     if pgrep -x login > /dev/null \
     || pgrep -x mosh-server > /dev/null \
+    || pgrep -f "^sshd:.*@" > /dev/null \
     || pgrep -fx tmux > /dev/null; then
         IDLE_TIME=0
     else
