@@ -43,6 +43,12 @@ rm lazygit
 curl -sS https://starship.rs/install.sh | sh -s -- -y
 curl -LsSf https://astral.sh/uv/install.sh | sh
 
+# Install tcping
+TCPING_ARCH="${ARCH/x86_64/amd64}"
+wget -q -O /tmp/tcping.deb "https://github.com/pouriyajamshidi/tcping/releases/latest/download/tcping-${TCPING_ARCH}.deb"
+apt install /tmp/tcping.deb
+rm /tmp/tcping.deb
+
 # Setup Oh My Zsh for root
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
