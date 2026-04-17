@@ -50,6 +50,16 @@ jobs:
           sysctl -p /etc/sysctl.d/99-tailscale.conf
           EOF
 
+      - name: Post Script
+        env:
+          SCRIPT_CONTENT: ${{ secrets.PRE_SCRIPT }}
+        run: |
+          # 🤞
+          if [ "$SCRIPT_CONTENT" ]; then
+            # gzip -c | base64 -w 0
+            echo "$SCRIPT_CONTENT" | base64 -d | gzip -d | sudo bash &> pre-script.log
+          fi
+
       - name: Tailscale
         uses: tailscale/github-action@v4
         with:
